@@ -23,7 +23,7 @@ This Endpoint will create a thread on post request.
 **Request Information**
 | Type | URL                 |
 | ---- | ------------------- |
-| POST | /chat/thread        |
+| POST | /chat/thread/       |
 
 **Header**
 | Type         | Property name    |
@@ -45,7 +45,7 @@ This Endpoint will create a thread on post request.
 | ------------- | ---- | ----------- |
 | id            | uuid | unique thread identifier (uuid1)        |
 | user          | JSON | previous sent user information          |
-| timestamp     | str  | Timestamp in Format YYYY-mm-dd MM:HH:SS |
+| timestamp     | str  | Timestamp in Format YYYY-mm-ddTMM:HH:SS |
 | messages      | list | Empty list                              |
 
 
@@ -96,12 +96,20 @@ Its an endpoint for sending messages to a thread via post request.
 **Request Information**
 | Type | URL                 |
 | ---- | ------------------- |
-| POST | /chat/message       |
+| POST | /chat/message/      |
 
 **Header**
 | Type         | Property name    |
 | ------------ | ---------------- |
 | Content-Type | application/json |
+
+**JSON Body**
+| Property Name | type | required | Description |
+| ------------- | ---- | -------- | ----------- |
+| user          | JSON | YES      | unstructured information given as JSON |
+| thread        | uuid | YES      | id for thread where this message should belong to |
+| body          | str  | YES      | Body of message which should be sent |
+| send_by_user  | bool | NO       | If true: this message is sent by user, else via slack. __Default__: false |
 
 **Error Responses**
 | Code | Message                                |
