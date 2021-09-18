@@ -9,4 +9,5 @@ docker-compose down
 
 git pull origin master
 
-docker-compose up --build -d django -e DJ_SECRET_KEY=$SECRET_KEY
+export DJ_SECRET_KEY=$SECRET_KEY
+docker-compose up --build -d django
