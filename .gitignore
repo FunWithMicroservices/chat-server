@@ -16,3 +16,6 @@ dj_app/config/settings/settings_test.py
 
 # Mac OS
 .DS_Store
+
+# Docker
+docker-compose.local.yml
