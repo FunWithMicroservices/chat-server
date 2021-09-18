@@ -6,7 +6,7 @@ from .models import Thread, Message
 class ThreadMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
-        fields = ("id", "user", "timestamp", "body", )
+        fields = ("id", "user", "timestamp", "body", "send_by_user")
 
 
 class ThreadSerializer(serializers.ModelSerializer):
