@@ -20,5 +20,5 @@ jobs:
         username: ${{ secrets.USERNAME }}
         host: ${{ secrets.HOST }}
         script: |
-          cd review-app
+          cd chat-server
           bash deploy.sh -s '${{ secrets.DJ_SECRET_KEY }}'
