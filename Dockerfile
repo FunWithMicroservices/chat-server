@@ -1,4 +1,4 @@
-FROM python:3.8-alpine3.14
+FROM python:3.8
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -14,6 +14,6 @@ COPY ./dj_app /app/
 
 RUN pip install --upgrade pip \
     && pip install -r app/requirements.txt \
-    $$ pip install daphne
+    && pip install daphne
 
 WORKDIR /app/
