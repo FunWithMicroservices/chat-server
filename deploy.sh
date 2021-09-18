@@ -5,8 +5,10 @@ do
     esac
 done
 
-docker-compose down
+echo $SECRET_KEY
 
-git pull origin master
+# docker-compose down
 
-docker-compose up --build -d django -e DJ_SECRET_KEY=$SECRET_KEY
+# git pull origin master
+
+# docker-compose up --build -d django -e DJ_SECRET_KEY=$SECRET_KEY
