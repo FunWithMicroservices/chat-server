@@ -18,6 +18,11 @@ class Thread(models.Model):
 
 
 class Message(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        editable=False,
+        default=uuid.uuid1
+    )
     thread = models.ForeignKey(
         to=Thread,
         on_delete=models.CASCADE,
