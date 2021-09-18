@@ -8,8 +8,8 @@ __pycache__/
 *.pytest_cache/
 *.pyc
 *.sqlite3
-app/config/settings/settings_local.py
-app/config/settings/settings_test.py
+dj_app/config/settings/settings_local.py
+dj_app/config/settings/settings_test.py
 
 # env
 .env
