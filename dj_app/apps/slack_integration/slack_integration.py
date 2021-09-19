@@ -61,5 +61,7 @@ def send_to_slack(instance: Message, thread: SlackThread):
 
 
 def lead_message_to_slack(instance):
+    if not instance.send_by_user:
+        return
     slack_thread = get_slack_thread(instance.thread)
     send_to_slack(instance=instance, thread=slack_thread)

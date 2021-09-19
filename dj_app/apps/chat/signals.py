@@ -10,8 +10,6 @@ from .serializers import ThreadMessageSerializer
 @receiver(post_save, sender=Message)
 def send_message_to_socket(created, instance, *args, **kwargs):
     if created:
-        if not instance.send_by_user:
-            return
         channel_layer = get_channel_layer()
         serializer = ThreadMessageSerializer(instance)
         async_to_sync(channel_layer.group_send)(
