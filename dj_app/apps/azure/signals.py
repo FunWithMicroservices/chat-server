@@ -13,7 +13,7 @@ def send_message_to_slack(created, instance, *args, **kwargs):
         if not instance.send_by_user:
             return
         sb_msg = {
-            "source_thread_id": instance.thread.id,
+            "source_thread_id": str(instance.thread.id),
             "body": instance.body,
             "info": instance.user,
             "source_type": "support"

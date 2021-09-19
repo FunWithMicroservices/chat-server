@@ -8,7 +8,7 @@ urlpatterns = [
 ]
 
 if "apps.slack_integration" in settings.INSTALLED_APPS:
-    urlpatterns += path("slack/", include("apps.slack_integration.urls"))
+    urlpatterns += [path("slack/", include("apps.slack_integration.urls"))]
 
 if "apps.azure" in settings.INSTALLED_APPS:
-    urlpatterns += path("azure/", include("apps.azure.urls"))
+    urlpatterns += [path("azure/", include("apps.azure.urls"))]
