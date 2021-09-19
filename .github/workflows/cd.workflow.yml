@@ -22,4 +22,4 @@ jobs:
         script: |
           cd chat-server
           git pull origin master
-          bash deploy.sh -s '${{ secrets.DJ_SECRET_KEY }}'
+          bash deploy.sh -s '${{ secrets.DJ_SECRET_KEY }}' -t '${{ secrets.SLACK_BOT_TOKEN }}'
