@@ -22,6 +22,9 @@ class SlackAPI(CreateAPIView):
         except SlackThread.DoesNotExist:
             return Response({"challenge": event_id})
 
+        if not event["text"].startswith("*send* "):
+            return Response({"challenge": event_id})
+
         Message.objects.create(
             thread=thread.source_thread,
             user={"username": "slack"},
