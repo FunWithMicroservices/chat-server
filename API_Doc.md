@@ -125,3 +125,17 @@ Its an endpoint for sending messages to a thread via post request.
 | body          | str  | Body of that message                     |
 | send_by_user  | bool | If true: this message is sent by user, else via slack |
 | thread        | uuid | Reference to thread where message should be sent to |
+
+
+<a name="chat_websocket"></a>
+
+### Chat Websocket
+It's about Websocket Connection for chat
+
+**Request Information**
+| Type | URL                 |
+| ---- | ------------------- |
+| POST | ws/chat/:threadId   |
+
+**Important:** you do not need to use the `api/` prefix anymore
+Route should be like `ws://localhost:8000/ws/chat/:threadId`
