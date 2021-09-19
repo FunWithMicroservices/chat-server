@@ -12,7 +12,7 @@
 <a name="toc_websockets"></a>
 
 ## ToC Websockets
-TODO
+- [Chat Websockets](#chat_websocket)
 
 
 <a name="create_thread"></a>
@@ -138,4 +138,16 @@ It's about Websocket Connection for chat
 | POST | ws/chat/:threadId   |
 
 **Important:** you do not need to use the `api/` prefix anymore
-Route should be like `ws://localhost:8000/ws/chat/:threadId`
+Route should be like `ws://localhost:8000/ws/chat/:threadId/`
+
+**On Message**
+You are receiving Thread Messages on this event.
+
+| Property Name | type | Description |
+| ------------- | ---- | ----------- |
+| id            | uuid | unique thread identifier (uuid1)         |
+| user          | JSON | Information about author of that message |
+| timestamp     | str  | Timestamp in Format YYYY-mm-dd MM:HH:SS  |
+| body          | str  | Body of that message                     |
+| send_by_user  | bool | If true: this message is sent by user, else via slack |
+| thread        | uuid | Reference to thread where message should be sent to |
