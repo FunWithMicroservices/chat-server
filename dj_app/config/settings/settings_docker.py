@@ -1,5 +1,8 @@
 from config.settings.base import *
 
+INSTALLED_APPS += [
+    "apps.slack_integration",
+]
 
 CHANNEL_LAYERS = {
     'default': {
