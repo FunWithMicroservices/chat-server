@@ -1,5 +1,7 @@
 # Chat Slack Integration Server
 
+![project architecture](Architecture-Page.png "Project Architecture")
+
 This project is the backend for the following frontend module:
 https://github.com/JangasIntegrationplace/chat-fontend
 

@@ -1,7 +1,7 @@
 from config.settings.base import *
 
 INSTALLED_APPS += [
-    "apps.slack_integration",
+    "apps.azure",
 ]
 
 CHANNEL_LAYERS = {

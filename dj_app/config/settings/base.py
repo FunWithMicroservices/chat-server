@@ -111,3 +111,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
 SLACK_SUPPORT_CHANNEL = os.getenv("SLACK_SUPPORT_CHANNEL")
+AZ_SB_CONN_STR = os.getenv("AZ_SB_CONN_STR")
