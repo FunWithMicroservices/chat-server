@@ -28,7 +28,7 @@ class SlackAPI(CreateAPIView):
         Message.objects.create(
             thread=thread.source_thread,
             user={"username": "slack"},
-            body=event["text"],
+            body=event["text"].lstrip("*send* "),
             send_by_user=False
         )
 
