@@ -42,7 +42,7 @@ services:
       - REDIS_PORT=6379
       - DJANGO_SETTINGS_MODULE=config.settings.settings_docker
       - SLACK_BOT_TOKEN=${SLACK_BOT_TOKEN:-secret}
-      - SLACK_SUPPORT_CHANNEL='#support-slack-integration'
+      - SLACK_SUPPORT_CHANNEL=#support-slack-integration
 
       - WAIT_HOSTS=postgres:5432,redis:6379
       - WAIT_HOSTS_TIMEOUT=100
