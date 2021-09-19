@@ -1,12 +1,11 @@
-from rest_framework.generics import CreateAPIView, RetrieveAPIView
+from rest_framework.generics import CreateAPIView
+from rest_framework.response import Response
 
 
-class SlackAPI(CreateAPIView, RetrieveAPIView):
+class SlackAPI(CreateAPIView):
     def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
-
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
+        challenge = request.data["challenge"]
+        return Response({"challenge": challenge})
 
 
 slack_api = SlackAPI.as_view()
