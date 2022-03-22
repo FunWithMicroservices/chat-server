@@ -22,3 +22,10 @@ DATABASES = {
         'PORT': os.getenv("POSTGRES_PORT"),
     }
 }
+
+KAFKA_CONF = {
+    'bootstrap.servers': os.getenv("KAFKA_HOST"),
+    'group.id': "slack-middleware",
+    'session.timeout.ms': 6000,
+    'auto.offset.reset': 'earliest'
+}

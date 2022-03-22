@@ -1,7 +1,8 @@
 from config.settings.base import *
 
 INSTALLED_APPS += [
-    "apps.azure",
+    "apps.slack_integration",
+    "apps.kafka_consumer"
 ]
 
 CHANNEL_LAYERS = {
@@ -24,4 +25,11 @@ DATABASES = {
         'HOST': os.getenv("POSTGRES_HOST"),
         'PORT': os.getenv("POSTGRES_PORT"),
     }
+}
+
+KAFKA_CONF = {
+    'bootstrap.servers': os.getenv("KAFKA_HOST"),
+    'group.id': "slack-middleware",
+    'session.timeout.ms': 6000,
+    'auto.offset.reset': 'earliest'
 }

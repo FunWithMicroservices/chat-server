@@ -10,3 +10,4 @@ channels-redis==3.3.0
 pytest-django==4.4.0
 slack-sdk==3.10.1
 azure-servicebus==7.3.3
+confluent-kafka==1.8.2

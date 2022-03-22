@@ -70,7 +70,7 @@ setup.
 - Open your Firewall for Port 8001
 - Clone this Repository and navigate into it
 - Go to https://djecrety.ir and generate a secret key for django
-- Run `bash deploy.sh -s {DJANGO SECRET KEY} -t {SLACK BOT TOKEN}`
+- Run `bash deploy.sh -s {DJANGO SECRET KEY} -t {SLACK BOT TOKEN} -k {KAFKA HOST}`
 
 
 ## Azure Setup

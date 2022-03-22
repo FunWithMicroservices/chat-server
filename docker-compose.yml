@@ -47,6 +47,7 @@ services:
       - SLACK_BOT_TOKEN=${SLACK_BOT_TOKEN:-secret}
       - SLACK_SUPPORT_CHANNEL=#support-slack-integration
       - AZ_SB_CONN_STR=${AZ_SB_CONN_STR:-secret}
+      - KAFKA_HOST=${KAFKA_HOST:-localhost:9200}
 
       - WAIT_HOSTS=postgres:5432,redis:6379
       - WAIT_HOSTS_TIMEOUT=100
@@ -73,3 +74,43 @@ services:
     depends_on:
       - django-chat-server
     restart: always
+
+  # TODO Remove Redis from dependencies
+  django-kafka-consumer:
+    build: .
+    container_name: workshop-chat-server-django-chat-server
+    ports:
+      - 8001:8001
+    environment:
+      - SECRET_KEY=${DJ_SECRET_KEY:-secret}
+      - DEBUG=True
+      - ALLOWED_HOSTS=${DJ_ALLOWED_HOSTS:-*}
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=redispw123
+      - REDIS_PORT=6379
+      - DJANGO_SETTINGS_MODULE=config.settings.settings_docker
+      - SLACK_BOT_TOKEN=${SLACK_BOT_TOKEN:-secret}
+      - SLACK_SUPPORT_CHANNEL=#support-slack-integration
+      - KAFKA_HOST=${KAFKA_HOST:-localhost:9200}
+
+      - WAIT_HOSTS=postgres:5432,redis:6379
+      - WAIT_HOSTS_TIMEOUT=100
+      - WAIT_SLEEP_INTERVAL=5
+      - WAIT_HOST_CONNECT_TIMEOUT=5
+    depends_on:
+      - postgres
+      - redis
+    command:
+      - sh
+      - -c
+      - |
+        ./../wait
+        python manage.py migrate
+        python manage.py consume_slack_messages
+    volumes:
+      - ./dj_app:/app
