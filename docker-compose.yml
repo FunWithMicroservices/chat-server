@@ -7,6 +7,7 @@ volumes:
 services:
   postgres:
     image: postgres:alpine
+    container_name: workshop-chat-server-postgres
     ports:
       - 54321:5432
     environment:
@@ -18,14 +19,16 @@ services:
 
   redis:
     image: bitnami/redis:latest
+    container_name: workshop-chat-server-redis
     ports:
       - 63791:6379
     environment:
       - REDIS_MASTER_PASSWORD=masterpw123
       - REDIS_PASSWORD=redispw123
 
-  django:
+  django-chat-server:
     build: .
+    container_name: workshop-chat-server-django-chat-server
     ports:
       - 8001:8001
     environment:
@@ -61,3 +64,12 @@ services:
         daphne -b 0.0.0.0 -p 8001 config.asgi:application
     volumes:
       - ./dj_app:/app
+
+  nginx:
+    build: ./nginx
+    container_name: workshop-chat-server-nginx
+    ports:
+      - 80:80
+    depends_on:
+      - django-chat-server
+    restart: always
