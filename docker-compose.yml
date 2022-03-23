@@ -78,9 +78,7 @@ services:
   # TODO Remove Redis from dependencies
   django-kafka-consumer:
     build: .
-    container_name: workshop-chat-server-django-chat-server
-    ports:
-      - 8001:8001
+    container_name: workshop-chat-server-django-kafka-consumer
     environment:
       - SECRET_KEY=${DJ_SECRET_KEY:-secret}
       - DEBUG=True
