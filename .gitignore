@@ -19,3 +19,4 @@ dj_app/config/settings/settings_test.py
 
 # Docker
 docker-compose.local.yml
+*.log
