@@ -16,8 +16,6 @@ def get_slack_thread(thread):
 
 
 def send_to_slack(instance: Message, thread: SlackThread):
-    logger.info(f"Slack Bot Token: {settings.SLACK_BOT_TOKEN}")
-    
     client = WebClient(token=settings.SLACK_BOT_TOKEN)
 
     blocks = []
@@ -48,15 +46,13 @@ def send_to_slack(instance: Message, thread: SlackThread):
             }
         })
 
-    logger.info(f"Slack Support Channel: {settings.SLACK_SUPPORT_CHANNEL}")
-
     response = client.chat_postMessage(
         channel=settings.SLACK_SUPPORT_CHANNEL,
         text="",
         blocks=blocks,
         thread_ts=None if not thread else thread.thread_ts,
     )
-
+    logger.info(f"Message was sent to Slack into Channel {settings.SLACK_SUPPORT_CHANNEL}")
     if thread is None:
         SlackThread.objects.create(
             source_thread=instance.thread,
