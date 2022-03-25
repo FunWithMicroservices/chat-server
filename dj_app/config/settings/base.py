@@ -115,3 +115,43 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
 SLACK_SUPPORT_CHANNEL = os.getenv("SLACK_SUPPORT_CHANNEL")
 AZ_SB_CONN_STR = os.getenv("AZ_SB_CONN_STR")
+
+
+Path.mkdir(BASE_DIR / "logs", exist_ok=True)
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "root": {
+        "level": "INFO",
+        "handlers": ["console", "file"]
+    },
+    "handlers": {
+        'console': {
+            'class': 'logging.StreamHandler',
+            "formatter": "app",
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / "logs" / "app.log",
+            "formatter": "app",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console", "file", ],
+            "level": "INFO",
+            "propagate": True
+        },
+    },
+    "formatters": {
+        "app": {
+            "format": (
+                u"%(asctime)s [%(levelname)-8s] "
+                "(%(module)s.%(funcName)s) %(message)s"
+            ),
+            "datefmt": "%Y-%m-%dT%H:%M:%SZ",
+        },
+    },
+}
