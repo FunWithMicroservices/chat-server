@@ -29,12 +29,8 @@ services:
   django-chat-server:
     build: .
     container_name: workshop-chat-server-django-chat-server
-    ports:
-      - 8001:8001
+    env_file: ./dj_app/.env
     environment:
-      - SECRET_KEY=${DJ_SECRET_KEY:-secret}
-      - DEBUG=True
-      - ALLOWED_HOSTS=${DJ_ALLOWED_HOSTS:-*}
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
       - POSTGRES_DB=postgres
@@ -44,10 +40,6 @@ services:
       - REDIS_PASSWORD=redispw123
       - REDIS_PORT=6379
       - DJANGO_SETTINGS_MODULE=config.settings.settings_docker
-      - SLACK_BOT_TOKEN=${SLACK_BOT_TOKEN:-secret}
-      - SLACK_SUPPORT_CHANNEL=#support-slack-integration
-      - AZ_SB_CONN_STR=${AZ_SB_CONN_STR:-secret}
-      - KAFKA_HOST=${KAFKA_HOST:-localhost:9200}
 
       - WAIT_HOSTS=postgres:5432,redis:6379
       - WAIT_HOSTS_TIMEOUT=100
@@ -71,18 +63,27 @@ services:
     container_name: workshop-chat-server-nginx
     ports:
       - 80:80
+    restart: always
+    volumes:
+      - ./nginx/django-chat-server.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - django-chat-server
-    restart: always
+
+  nginx-prometheus-exporter:
+    image: nginx/nginx-prometheus-exporter
+    container_name: workshop-customer-platform-nginx-exporter
+    ports:
+      - 9113:9113
+    command: -nginx.scrape-uri http://nginx/nginx/metrics
+    depends_on:
+      - nginx
 
   # TODO Remove Redis from dependencies
   django-kafka-consumer:
     build: .
     container_name: workshop-chat-server-django-kafka-consumer
+    env_file: ./dj_app/.env
     environment:
-      - SECRET_KEY=${DJ_SECRET_KEY:-secret}
-      - DEBUG=True
-      - ALLOWED_HOSTS=${DJ_ALLOWED_HOSTS:-*}
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
       - POSTGRES_DB=postgres
@@ -92,9 +93,6 @@ services:
       - REDIS_PASSWORD=redispw123
       - REDIS_PORT=6379
       - DJANGO_SETTINGS_MODULE=config.settings.settings_docker
-      - SLACK_BOT_TOKEN=${SLACK_BOT_TOKEN:-secret}
-      - SLACK_SUPPORT_CHANNEL=#support-slack-integration
-      - KAFKA_HOST=${KAFKA_HOST:-localhost:9200}
 
       - WAIT_HOSTS=postgres:5432,redis:6379
       - WAIT_HOSTS_TIMEOUT=100
