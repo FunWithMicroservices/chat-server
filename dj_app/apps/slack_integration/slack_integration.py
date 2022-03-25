@@ -1,8 +1,11 @@
-from .models import SlackThread
+import logging
 import json
 from django.conf import settings
 from slack_sdk.web import WebClient
 from apps.chat.models import Message
+from .models import SlackThread
+
+logger = logging.getLogger(__name__)
 
 
 def get_slack_thread(thread):
@@ -13,6 +16,8 @@ def get_slack_thread(thread):
 
 
 def send_to_slack(instance: Message, thread: SlackThread):
+    logger.info(f"Slack Bot Token: {settings.SLACK_BOT_TOKEN}")
+    
     client = WebClient(token=settings.SLACK_BOT_TOKEN)
 
     blocks = []
@@ -42,6 +47,8 @@ def send_to_slack(instance: Message, thread: SlackThread):
                 "text": f"*Message*\n{instance.body}"
             }
         })
+
+    logger.info(f"Slack Support Channel: {settings.SLACK_SUPPORT_CHANNEL}")
 
     response = client.chat_postMessage(
         channel=settings.SLACK_SUPPORT_CHANNEL,
